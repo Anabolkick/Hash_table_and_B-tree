@@ -1,0 +1,10 @@
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\bin\Debug\lab_2_2.exe.config
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\bin\Debug\lab_2_2.exe
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\bin\Debug\lab_2_2.pdb
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.csproj.AssemblyReference.cache
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.Form1.resources
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.Properties.Resources.resources
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.csproj.GenerateResource.cache
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.csproj.CoreCompileInputs.cache
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.exe
+C:\Users\Anabolkick\source\repos\AtaSD_lab_2_Galsyh\lab_2_2\obj\Debug\lab_2_2.pdb
