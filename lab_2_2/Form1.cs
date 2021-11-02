@@ -19,7 +19,7 @@ namespace lab_2_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            B_tree bTree = new B_tree(4);
+            B_tree bTree = new B_tree(3);
             Random rand = new Random();
             //for (int i = 0; i < 25; i++)
             //{
@@ -55,7 +55,7 @@ namespace lab_2_2
                 label1.Text += "||";
                 foreach (var key in curr_node.Keys)
                 {
-                    label1.Text += $" {key}";
+                    label1.Text += $" {key.Value}";
                 }
             }
             label1.Text += "||";
