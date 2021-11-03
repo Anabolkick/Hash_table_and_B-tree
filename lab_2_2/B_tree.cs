@@ -245,7 +245,7 @@ namespace lab_2_2
         public void Add(Diary diary, Property property)
         {
 
-            B_node_key key_value = new B_node_key(){Data = diary};
+            B_node_key key_value = new B_node_key() { Data = diary };
             switch (property)
             {
                 case Property.date:
@@ -265,6 +265,7 @@ namespace lab_2_2
             if (Root_node.Children_nodes.Count == 0 && Root_node.KeysUsed == 0) //если есть только корень
             {
                 Root_node.Keys[0].Value = key_value.Value;
+                Root_node.Keys[0].Data = key_value.Data;
                 Root_node.KeysUsed++;
             }
             else
@@ -344,10 +345,13 @@ namespace lab_2_2
                             for (var j = i; j < node.KeysUsed; j++) //смещение вправо
                             {
                                 node.Keys[j + 1].Value = node.Keys[j].Value;
+                                node.Keys[j + 1].Data = node.Keys[j].Data;
                                 node.Keys[j].Value = null;
+                                node.Keys[j].Data = null;
                             }
 
                             node.Keys[i].Value = key_value.Value;
+                            node.Keys[i].Data = key_value.Data;
                             node.KeysUsed++;
                             return true;
                         }
@@ -381,20 +385,25 @@ namespace lab_2_2
                                         for (int g = 0; g < node.KeysUsed - j; g++) //смещение вправо
                                         {
                                             node.Keys[node.MaxKeysCount - g].Value = node.Keys[node.MaxKeysCount - 1 - g].Value; //с конце перемещаем 
+                                            node.Keys[node.MaxKeysCount - g].Data = node.Keys[node.MaxKeysCount - 1 - g].Data; //с конце перемещаем 
                                         }
                                         node.Keys[j].Value = key_value.Value;
+                                        node.Keys[j].Data = key_value.Data;
                                         break;
                                     }
                                     else if (j == node.KeysUsed - 1)     // если значение больше всех ключей 
                                     {
                                         node.Keys[j + 1].Value = key_value.Value;
+                                        node.Keys[j + 1].Data = key_value.Data;
                                         break;
                                     }
                                 }
 
                                 mid_index = (int)Math.Ceiling((decimal)node.Keys.Length / 2) - 1;
                                 double mid_value = (double)node.Keys[mid_index].Value;
+                                Diary mid_data = node.Keys[mid_index].Data;
                                 node.Keys[mid_index].Value = null;
+                                node.Keys[mid_index].Data = null;
                                 // node.KeysUsed--;
                                 //те что слева оставляем, те что справа - в новый нод
                                 var right_count = node.Keys.Length - mid_index - 1; //количество индексов справа от среднего
@@ -402,7 +411,9 @@ namespace lab_2_2
                                 for (int j = 0; j < right_count; j++) //перенос значений справа в новый нод
                                 {
                                     newNode.Keys[j].Value = node.Keys[node.Keys.Length - right_count + j].Value;
+                                    newNode.Keys[j].Data = node.Keys[node.Keys.Length - right_count + j].Data;
                                     node.Keys[node.Keys.Length - right_count + j].Value = null;
+                                    node.Keys[node.Keys.Length - right_count + j].Data = null;
                                     newNode.KeysUsed++;
                                     node.KeysUsed--;
                                 }
@@ -433,9 +444,11 @@ namespace lab_2_2
                                             for (int g = 0; g < parent_node.MaxKeysCount - j; g++) //смещение вправо
                                             {
                                                 parent_node.Keys[parent_node.MaxKeysCount - g].Value = parent_node.Keys[parent_node.MaxKeysCount - 1 - g].Value; //с конце перемещаем 
+                                                parent_node.Keys[parent_node.MaxKeysCount - g].Data = parent_node.Keys[parent_node.MaxKeysCount - 1 - g].Data; //с конце перемещаем 
                                             }
 
                                             parent_node.Keys[j].Value = mid_value;
+                                            parent_node.Keys[j].Data = mid_data;
                                             parent_node.KeysUsed++;
                                             done = true;
                                             break;
@@ -443,6 +456,7 @@ namespace lab_2_2
                                         else if (parent_node.Keys[j].Value == null)
                                         {
                                             parent_node.Keys[j].Value = mid_value;
+                                            parent_node.Keys[j].Data = mid_data;
                                             parent_node.KeysUsed++;
                                             done = true;
                                             break;
@@ -460,6 +474,7 @@ namespace lab_2_2
                                     node = new B_node(M);        // что б указывал на новый объект
                                     node = parent_node;
                                     key_value.Value = mid_value;
+                                    key_value.Data = mid_data;
                                     goto new_parent;   //повторяем по отношению к родителю
                                 }
 
@@ -483,27 +498,33 @@ namespace lab_2_2
             }
         }
 
-       
-
         public Diary Find(double value)
         {
-            var find_node = Root_node;
+            B_node find_node = new B_node(M);
+            find_node.Keys = Root_node.Keys;
+            find_node.KeysUsed = Root_node.KeysUsed;
+            find_node.Children_nodes = Root_node.Children_nodes;
 
             find_lower:
             for (int i = 0; i < find_node.Keys.Length; i++)
             {
-                if (find_node.Keys[i].Value == value)
+                if (find_node.Keys[i].Value == value)  //Нашли
                 {
                     return find_node.Keys[i].Data;
                 }
-                else if (find_node.Keys[i].Value > value)
+                else if (find_node.Keys[i].Value > value && find_node.Children_nodes.Count >0 && find_node.Children_nodes[i] != null)  //Идем в детей нода
                 {
-                    find_node = find_node.Children_nodes[i];
-                    goto  find_lower;
+                    find_node.Keys = find_node.Children_nodes[i].Keys;
+                    find_node.KeysUsed = find_node.Children_nodes[i].KeysUsed;
+                    find_node.Children_nodes = find_node.Children_nodes[i].Children_nodes;
+                    goto find_lower;
                 }
-                else if(find_node.Keys[i].Value < value && i == find_node.KeysUsed-1)  // последний элемент
+                else if (find_node.Keys[i].Value < value && i == find_node.KeysUsed - 1
+                && find_node.Children_nodes.Count > 0 && find_node.Children_nodes[i+1] != null)  // последний элемент - идем в крайнего ребенка
                 {
-                    find_node = find_node.Children_nodes[i+1];
+                    find_node.Keys = find_node.Children_nodes[i + 1].Keys;
+                    find_node.KeysUsed = find_node.Children_nodes[i+1].KeysUsed;
+                    find_node.Children_nodes = find_node.Children_nodes[i+1].Children_nodes;
                     goto find_lower;
                 }
             }

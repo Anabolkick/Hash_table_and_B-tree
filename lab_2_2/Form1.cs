@@ -16,10 +16,9 @@ namespace lab_2_2
         {
             InitializeComponent();
         }
-
+        B_tree bTree = new B_tree(3);
         private void button1_Click(object sender, EventArgs e)
         {
-            B_tree bTree = new B_tree(3);
             Random rand = new Random();
             //for (int i = 0; i < 25; i++)
             //{
@@ -28,18 +27,32 @@ namespace lab_2_2
             //}
 
 
-            bTree.Add(5);
-            bTree.Add(7);
-            bTree.Add(8);
-            bTree.Add(15);
-            bTree.Add(1);
-            bTree.Add(9);
-            bTree.Add(9);
-            bTree.Add(7);
-            bTree.Add(2);
-            bTree.Add(1);
-            bTree.Add(15);
-            bTree.Add(15);
+            bTree.Add(new Diary() { Date = 5, Wind = "5" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 7, Wind = "7"}, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 8, Wind = "8" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 15, Wind = "15" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 1, Wind = "1" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 13, Wind = "13" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 9, Wind = "9" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 7, Wind = "7" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 2, Wind = "2" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 1, Wind = "1" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 15, Wind = "15" }, B_tree.Property.date);
+            bTree.Add(new Diary() { Date = 15, Wind = "15" }, B_tree.Property.date);
+
+
+
+            //bTree.Add(7);
+            //bTree.Add(8);
+            //bTree.Add(15);
+            //bTree.Add(1);
+            //bTree.Add(9);
+            //bTree.Add(9);
+            //bTree.Add(7);
+            //bTree.Add(2);
+            //bTree.Add(1);
+            //bTree.Add(15);
+            //bTree.Add(15);
 
             label1.Text = "";
             B_node node = bTree.Root_node;
@@ -75,6 +88,20 @@ namespace lab_2_2
             }
 
             Console.WriteLine(bTree.ToString());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var node = bTree.Find((int)numericUpDown1.Value);
+            if (node != null)
+            {
+                label1.Text = node.Wind;
+            }
+            else
+            {
+                label1.Text = "Can`t find element";
+            }
+           
         }
     }
 }
