@@ -8,11 +8,12 @@ namespace lab_2_2
 {
     public class Diary
     {
-        public int Date;
+        public DateTime Date;
         public double Temperature;
         public double Humidity;
-        public double Precipitation;
+        public double Pressure;
+        public double PrecipitationLvl;
+        public string AtmosphericVenoms;
         public string Wind;
-        public string Pressure;
     }
 }

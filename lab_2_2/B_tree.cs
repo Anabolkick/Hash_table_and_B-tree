@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,7 +51,7 @@ namespace lab_2_2
                     }
                     if (value <= curr_node.Keys[i].Value) //значние меньше\равно ключа
                     {
-                        if (curr_node.Children_nodes.Count >= i + 1)   // Если есть ребенок слева оt ключа
+                        if (curr_node.Children_nodes.Count >= i + 1)   // Если есть ребенок слева от ключа
                         {
                             node = curr_node.Children_nodes[i];
                             break;
@@ -229,8 +230,8 @@ namespace lab_2_2
                                 newNode.Parent_node = parent_node;
                                 return true;
                             }
-
                         }
+
                         else
                         {
                             throw new Exception("ERRROE");
@@ -249,7 +250,7 @@ namespace lab_2_2
             switch (property)
             {
                 case Property.date:
-                    key_value.Value = diary.Date;
+                    key_value.Value = diary.Date.Ticks;
                     break;
                 case Property.humidity:
                     key_value.Value = diary.Humidity;
@@ -257,8 +258,11 @@ namespace lab_2_2
                 case Property.temperature:
                     key_value.Value = diary.Temperature;
                     break;
+                case Property.pressure:
+                    key_value.Value = diary.Pressure;
+                    break;
                 case Property.precipitation:
-                    key_value.Value = diary.Precipitation;
+                    key_value.Value = diary.PrecipitationLvl;
                     break;
             }
 
@@ -536,9 +540,8 @@ namespace lab_2_2
             date,
             temperature,
             humidity,
-            precipitation,
-            wind,
-            pressure
+            pressure,
+            precipitation
         }
     }
 }
